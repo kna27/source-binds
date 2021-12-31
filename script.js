@@ -1,7 +1,8 @@
 let fileInput = document.getElementById("cfg-upload");
 let gameInput = document.getElementById("game");
 
-let cfg = "";
+let binds = [];
+let nonbinds = [];
 let game = gameInput.value;
 
 fileInput.onchange = () => {
@@ -15,6 +16,12 @@ gameInput.onchange = () => {
 }
 
 function parseCfg(c) {
-    // TODO: clean up cfg
-    cfg = c
+    let lines = c.split("\n");
+    lines.forEach(line => {
+        if (!line.startsWith("bind")) {
+            nonbinds.push(line)
+        } else {
+            binds.push(line)
+        }
+    })
 }
