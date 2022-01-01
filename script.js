@@ -6,6 +6,10 @@ let bindsdict = {};
 let nonbinds = [];
 let game = gameInput.value;
 
+
+// csgo
+movement = ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"]
+
 fileInput.onchange = () => {
     const reader = new FileReader()
     reader.onload = (e) => parseCfg(e.target.result)
@@ -32,7 +36,16 @@ function parseCfg(c) {
 function colorKeyboard(b) {
     for (var key in b) {
         if (document.getElementById(key)) {
-            document.getElementById(key).childNodes[1].setAttribute("fill", "#ff0")
+            if (movement.includes(b[key])) {
+                document.getElementById(key).childNodes[1].setAttribute("fill", "#f00")
+            }
+            else if (b[key].startsWith("buy ")) {
+                document.getElementById(key).childNodes[1].setAttribute("fill", "#0f0")
+            }
+            else {
+                document.getElementById(key).childNodes[1].setAttribute("fill", "#ff0")
+            }
+
             console.log(key, b[key]);
         }
     }
