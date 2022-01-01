@@ -1,22 +1,22 @@
-let fileInput = document.getElementById("cfg-upload");
-let gameInput = document.getElementById("game");
+var fileInput = document.getElementById("cfg-upload");
+var gameInput = document.getElementById("game");
 
-let binds = [];
-let bindsdict = {};
-let nonbinds = [];
-let game = gameInput.value;
+var binds = [];
+var bindsdict = {};
+var nonbinds = [];
+var game = gameInput.value;
 
 
-// csgo
-movement = ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"]
-buy = ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "]
-commmunication = ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "]
-weapons = ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"]
+// CSGO
+const movement = ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"];
+const buy = ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "];
+const commmunication = ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "];
+const weapons = ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"];
 
 fileInput.onchange = () => {
-    const reader = new FileReader()
-    reader.onload = (e) => parseCfg(e.target.result)
-    reader.readAsText(fileInput.files[0])
+    const reader = new FileReader();
+    reader.onload = (e) => parseCfg(e.target.result);
+    reader.readAsText(fileInput.files[0]);
 }
 
 gameInput.onchange = () => {
@@ -27,40 +27,40 @@ function parseCfg(c) {
     let lines = c.split("\n");
     lines.forEach(line => {
         if (!line.startsWith("bind")) {
-            nonbinds.push(line)
+            nonbinds.push(line);
         } else {
-            binds.push(line)
-            bindsdict[line.match(/"(.*?)"/g)[0].replaceAll('"', '').toLowerCase()] = line.match(/"(.*?)"/g)[1].replaceAll('"', '')
+            binds.push(line);
+            bindsdict[line.match(/"(.*?)"/g)[0].replaceAll('"', '').toLowerCase()] = line.match(/"(.*?)"/g)[1].replaceAll('"', '');
         }
-    })
+    });
     colorKeyboard(bindsdict);
 }
 
 function colorKeyboard(b) {
     for (var key in b) {
         let kb = b[key];
-        let fillColor = "#ff0";
+        let fc = "#ff0";
         switch (game) {
             case "csgo":
                 if (document.getElementById(key)) {
                     if (movement.has(kb)) {
-                        fillColor = "#f00"
+                        fc = "#f00";
                     }
                     else if (buy.has(kb)) {
-                        fillColor = "#0f0"
+                        fc = "#0f0";
                     }
                     else if (commmunication.has(kb)) {
-                        fillColor = "#00f"
+                        fc = "#00f";
                     } else if (weapons.has(kb)) {
-                        fillColor = "#0ff"
+                        fc = "#0ff";
                     }
                 }
                 break;
             default:
-                fillColor = "#ff0"
+                fc = "#ff0";
         }
         if (document.getElementById(key)) {
-            document.getElementById(key).childNodes[1].setAttribute("fill", fillColor);
+            document.getElementById(key).childNodes[1].setAttribute("fill", fc);
         }
     }
 }
