@@ -68,7 +68,7 @@ function colorKeyboard(b) {
 Array.prototype.has = function (s) {
     let hasSubStr = false;
     this.forEach(e => {
-        if (s.startsWith(e)) {
+        if (s.startsWith(e) || s.includes(e)) {
             hasSubStr = true;
         }
     });
