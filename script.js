@@ -48,7 +48,7 @@ function colorKeyboard(b) {
 
             else if (b[key].startsWith("playerradio ") || b[key].startsWith("say ") || b[key].startsWith("say_team ") || commmunication.includes(b[key])) {
                 document.getElementById(key).childNodes[1].setAttribute("fill", "#00f")
-            } else if (weapons.includes(b[key])) {
+            } else if (weapons.includes(b[key]) || b[key].startsWith("use weapon_")) {
                 document.getElementById(key).childNodes[1].setAttribute("fill", "#0ff")
             }
             else {
