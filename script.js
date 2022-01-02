@@ -86,3 +86,13 @@ Array.prototype.has = function (s) {
     });
     return hasSubStr || this.some(e => e.includes(s));
 };
+
+window.onload = function () {
+    fetch("./keyboard.svg")
+        .then(x => x.text())
+        .then(data => {
+            var svg = document.createElement("svg");
+            svg.innerHTML = data;
+            document.getElementById("svgContainer").appendChild(svg);
+        });
+};
