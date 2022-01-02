@@ -14,6 +14,10 @@ const commmunication = ["+voicerecord", "messagemode2", "messagemode", "radio", 
 const weapons = ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"];
 
 fileInput.onchange = () => {
+    binds = [];
+    bindsdict = {};
+    nonbinds = [];
+    clearKeyboard();
     const reader = new FileReader();
     reader.onload = (e) => parseCfg(e.target.result);
     reader.readAsText(fileInput.files[0]);
