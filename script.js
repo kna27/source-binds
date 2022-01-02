@@ -65,6 +65,14 @@ function colorKeyboard(b) {
     }
 }
 
+function clearKeyboard() {
+    document.getElementById("keys").childNodes.forEach(e => {
+        if (e.childNodes.length > 0) {
+            e.childNodes[1].setAttribute("fill", "#f4f4f4");
+        }
+    })
+}
+
 Array.prototype.has = function (s) {
     let hasSubStr = false;
     this.forEach(e => {
