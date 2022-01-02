@@ -1,6 +1,6 @@
 g:not([id=case]) {
   pointer-events: bounding-box;
-  opacity: 0.8;
+  opacity: 0.95;
 }
 
 g:hover:not([id=case]) {
