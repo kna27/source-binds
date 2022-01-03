@@ -6,12 +6,28 @@ var bindsdict = {};
 var nonbinds = [];
 var game = gameInput.value;
 
+class BindType {
+    constructor(binds, color) {
+        this.binds = binds;
+        this.color = color;
+    }
+
+    has(s) {
+        let hasSubStr = false;
+        this.binds.forEach(e => {
+            if (s.startsWith(e) || s.includes(e)) {
+                hasSubStr = true;
+            }
+        });
+        return hasSubStr || this.binds.some(e => e.includes(s));
+    };
+}
 
 // CSGO
-const movement = ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"];
-const buy = ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "];
-const commmunication = ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "];
-const weapons = ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"];
+const movement = new BindType(["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"], "#f00");
+const buy = new BindType(["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#0f0");
+const commmunication = new BindType(["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "], "#00f");
+const weapons = new BindType(["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"], "#0ff");
 
 fileInput.onchange = () => {
     binds = [];
@@ -48,15 +64,15 @@ function colorKeyboard(b) {
             case "csgo":
                 if (document.getElementById(key)) {
                     if (movement.has(kb)) {
-                        fc = "#f00";
+                        fc = movement.color;
                     }
                     else if (buy.has(kb)) {
-                        fc = "#0f0";
+                        fc = buy.color;
                     }
                     else if (commmunication.has(kb)) {
-                        fc = "#00f";
+                        fc = commmunication.color;
                     } else if (weapons.has(kb)) {
-                        fc = "#0ff";
+                        fc = weapons.color;
                     }
                 }
                 break;
@@ -76,16 +92,6 @@ function clearKeyboard() {
         }
     })
 }
-
-Array.prototype.has = function (s) {
-    let hasSubStr = false;
-    this.forEach(e => {
-        if (s.startsWith(e) || s.includes(e)) {
-            hasSubStr = true;
-        }
-    });
-    return hasSubStr || this.some(e => e.includes(s));
-};
 
 window.onload = function () {
     fetch("./keyboard.svg")
