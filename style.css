@@ -1,12 +1,12 @@
 @font-face {
     font-family: DIN;
-    src: url("./DIN.ttf");
+    src: url("./fonts/DIN.ttf");
     font-weight: normal;
 }
 
 @font-face {
     font-family: DIN;
-    src: url("./DIN_Bold.ttf");
+    src: url("./fonts/DIN_Bold.ttf");
     font-weight: bold;
 }
 

@@ -94,7 +94,7 @@ function clearKeyboard() {
 }
 
 window.onload = function () {
-    fetch("./keyboard.svg")
+    fetch("./img/keyboard.svg")
         .then(x => x.text())
         .then(data => {
             var svg = document.createElement("svg");
