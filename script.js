@@ -7,7 +7,8 @@ var nonbinds = [];
 var game = gameInput.value;
 
 class BindType {
-    constructor(binds, color) {
+    constructor(name, binds, color) {
+        this.name = name;
         this.binds = binds;
         this.color = color;
     }
@@ -23,11 +24,12 @@ class BindType {
     };
 }
 
-// CSGO
-const movement = new BindType(["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"], "#f00");
-const buy = new BindType(["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#0f0");
-const commmunication = new BindType(["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "], "#00f");
-const weapons = new BindType(["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"], "#0ff");
+const CSGO_BINDS = [
+    new BindType("Movement", ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"], "#f00"),
+    new BindType("Buy Binds", ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#0f0"),
+    new BindType("Communication", ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "], "#00f"),
+    new BindType("Weapons", ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"], "#0ff")
+];
 
 fileInput.onchange = () => {
     binds = [];
@@ -60,26 +62,18 @@ function colorKeyboard(b) {
     for (var key in b) {
         let kb = b[key];
         let fc = "#ff0";
-        switch (game) {
-            case "csgo":
-                if (document.getElementById(key)) {
-                    if (movement.has(kb)) {
-                        fc = movement.color;
-                    }
-                    else if (buy.has(kb)) {
-                        fc = buy.color;
-                    }
-                    else if (commmunication.has(kb)) {
-                        fc = commmunication.color;
-                    } else if (weapons.has(kb)) {
-                        fc = weapons.color;
-                    }
-                }
-                break;
-            default:
-                fc = "#ff0";
-        }
         if (document.getElementById(key)) {
+            switch (game) {
+                case "csgo":
+                    CSGO_BINDS.forEach(e => {
+                        if (e.has(kb)) {
+                            fc = e.color;
+                        }
+                    });
+                    break;
+                default:
+                    fc = "#ff0";
+            }
             document.getElementById(key).childNodes[1].setAttribute("fill", fc);
         }
     }
@@ -90,7 +84,7 @@ function clearKeyboard() {
         if (e.childNodes.length > 0) {
             e.childNodes[1].setAttribute("fill", "#f4f4f4");
         }
-    })
+    });
 }
 
 window.onload = function () {
