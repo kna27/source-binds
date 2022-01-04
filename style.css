@@ -44,3 +44,8 @@ g:hover:not([id=case]) {
     padding: 5px;
     display: inline-block;
 }
+
+svg
+{
+    width: 100%;
+}
