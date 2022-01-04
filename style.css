@@ -1,8 +1,46 @@
+@font-face {
+    font-family: DIN;
+    src: url("./DIN.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: DIN;
+    src: url("./DIN_Bold.ttf");
+    font-weight: bold;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+p {
+    font-size: 1.3em;
+}
+
+body {
+    text-align: center;
+    font-family: 'DIN', verdana;
+    font-weight: normal;
+}
+
 g:not([id=case]) {
-  pointer-events: bounding-box;
-  opacity: 0.95;
+    pointer-events: bounding-box;
+    opacity: 0.95;
 }
 
 g:hover:not([id=case]) {
-  opacity: 1;
+    opacity: 1;
+}
+
+#svgContainer {
+    float: left;
+}
+
+#legend {
+    background-color: #808080;
+    border-radius: 25px;
+    padding: 5px;
+    display: inline-block;
 }
