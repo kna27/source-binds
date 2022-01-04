@@ -1,6 +1,6 @@
 var fileInput = document.getElementById("cfg-upload");
 var gameInput = document.getElementById("game");
-
+var legendHolder = document.getElementById("legend");
 var binds = [];
 var bindsdict = {};
 var nonbinds = [];
@@ -25,12 +25,21 @@ class BindType {
 }
 
 const CSGO_BINDS = [
-    new BindType("Movement", ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump", "+duck", "noclip"], "#f00"),
-    new BindType("Buy Binds", ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#0f0"),
-    new BindType("Communication", ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio", "playerradio ", "say ", "say_team "], "#00f"),
-    new BindType("Weapons", ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle", "lastinv", "+reload", "use weapon_"], "#0ff")
+    new BindType("Movement",
+        ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump",
+            "+duck", "noclip"], "#f00"),
+    new BindType("Buy Binds",
+        ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#0f0"),
+    new BindType("Communication",
+        ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio",
+            "playerradio ", "say ", "say_team "], "#00f"),
+    new BindType("Weapons",
+        ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8",
+            "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle",
+            "lastinv", "+reload", "use weapon_"], "#0ff")
 ];
-
+const MISC_COLOR = "#ff0";
+const UNBOUND_COLOR = "#f4f4f4";
 fileInput.onchange = () => {
     binds = [];
     bindsdict = {};
@@ -52,10 +61,12 @@ function parseCfg(c) {
             nonbinds.push(line);
         } else {
             binds.push(line);
-            bindsdict[line.match(/"(.*?)"/g)[0].replaceAll('"', '').toLowerCase()] = line.match(/"(.*?)"/g)[1].replaceAll('"', '');
+            bindsdict[line.match(/"(.*?)"/g)[0].replaceAll('"', '').toLowerCase()] =
+                line.match(/"(.*?)"/g)[1].replaceAll('"', '');
         }
     });
     colorKeyboard(bindsdict);
+    createLegend();
 }
 
 function colorKeyboard(b) {
@@ -77,6 +88,32 @@ function colorKeyboard(b) {
             document.getElementById(key).childNodes[1].setAttribute("fill", fc);
         }
     }
+}
+
+function createLegend() {
+    legendHolder.style.visibility = "visible";
+    while (legendHolder.lastElementChild) {
+        legendHolder.removeChild(legendHolder.lastElementChild);
+    }
+    addLegendLabel("Legend", "#EEE", "h3");
+    var chosenBinds;
+    switch (game) {
+        case "csgo":
+            chosenBinds = CSGO_BINDS;
+            break;
+        default:
+            chosenBinds = CSGO_BINDS;
+    }
+    chosenBinds.forEach(e => addLegendLabel(e.name, e.color));
+    addLegendLabel("Miscellaneous", MISC_COLOR);
+    addLegendLabel("Unbound", UNBOUND_COLOR);
+}
+
+function addLegendLabel(text, color, type = "p") {
+    let e = document.createElement(type);
+    e.innerHTML = text;
+    e.style.color = color;
+    legendHolder.appendChild(e);
 }
 
 function clearKeyboard() {
