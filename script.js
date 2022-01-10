@@ -27,18 +27,18 @@ class BindType {
 const CSGO_BINDS = [
     new BindType("Movement",
         ["+moveleft", "+moveright", "+jumpthrow", "+back", "+forward", "+jump",
-            "+duck", "noclip"], "#f00"),
+            "+duck", "noclip"], "#6ca0dc"),
     new BindType("Buy Binds",
-        ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#0f0"),
+        ["buyammo1", "buyammo2", "autobuy", "rebuy", "buy "], "#35ab6e"),
     new BindType("Communication",
         ["+voicerecord", "messagemode2", "messagemode", "radio", "+radialradio",
-            "playerradio ", "say ", "say_team "], "#00f"),
+            "playerradio ", "say ", "say_team "], "#ed905f"),
     new BindType("Weapons",
         ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8",
             "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle",
-            "lastinv", "+reload", "use weapon_"], "#0ff")
+            "lastinv", "+reload", "use weapon_"], "#ccba7c")
 ];
-const MISC_COLOR = "#ff0";
+const MISC_COLOR = "#d8546f";
 const UNBOUND_COLOR = "#f4f4f4";
 fileInput.onchange = () => {
     binds = [];
@@ -72,7 +72,7 @@ function parseCfg(c) {
 function colorKeyboard(b) {
     for (var key in b) {
         let kb = b[key];
-        let fc = "#ff0";
+        let fc = MISC_COLOR;
         if (document.getElementById(key)) {
             switch (game) {
                 case "csgo":
@@ -83,7 +83,7 @@ function colorKeyboard(b) {
                     });
                     break;
                 default:
-                    fc = "#ff0";
+                    fc = MISC_COLOR;
             }
             document.getElementById(key).childNodes[1].setAttribute("fill", fc);
         }
