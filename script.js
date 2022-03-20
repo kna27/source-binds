@@ -38,6 +38,18 @@ const CSGO_BINDS = [
             "slot9", "buymenu", "+lookatweapon", "drop", "show_loadout_toggle",
             "lastinv", "+reload", "use weapon_"], "#ccba7c")
 ];
+const TF2_BINDS =
+    [
+        new BindType("Movement",
+            ["+moveleft", "+moveright", "+back", "+forward", "+jump", "+duck", "noclip", "+strafe", "+use_action_slot_item", "+moveup", "+movedown", "+lookup", "+lookdown"], "#6ca0dc"),
+        new BindType("Communication",
+            ["+voicerecord", "say_party ", "say ", "say_team ", "voice_menu_", "voicemenu "], "#ed905f"),
+        new BindType("Weapons",
+            ["slot1", "slot2", "slot3", "slot4", "slot5", "slot6", "slot7", "slot8", "slot9", "slot10", "dropitem", "lastinv", "+reload", "+inspect", "load_itempreset ", "+attack", "invprev", "invnext"], "#ccba7c"),
+        new BindType("UI/Interface",
+            ["showmapinfo", "open_charinfo_direct", "open_charinfo_backpack", "cl_decline_first_notification", "cl_trigger_first_notification", "toggleconsole", "changeclass", "changeteam", "+showscores", "cancelselect", "+showroundinfo", "pause", "show_quest_log", "show_matchmaking", "screenshot", "save_replay", "abuse_report_queue", "quit", "replay_togglereplaytips"], "#32cd32")
+    ];
+
 const MISC_COLOR = "#d8546f";
 const UNBOUND_COLOR = "#f4f4f4";
 fileInput.onchange = () => {
@@ -81,6 +93,12 @@ function colorKeyboard(b) {
                             fc = e.color;
                         }
                     });
+                case "tf2":
+                    TF2_BINDS.forEach(e => {
+                        if (e.has(kb)) {
+                            fc = e.color;
+                        }
+                    });
                     break;
                 default:
                     fc = MISC_COLOR;
@@ -100,6 +118,9 @@ function createLegend() {
     switch (game) {
         case "csgo":
             chosenBinds = CSGO_BINDS;
+            break;
+        case "tf2":
+            chosenBinds = TF2_BINDS;
             break;
         default:
             chosenBinds = CSGO_BINDS;
